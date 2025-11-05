@@ -1,0 +1,2 @@
+# Nmap 7.95 scan initiated Sun Nov  2 12:18:07 2025 as: /usr/lib/nmap/nmap -sS -p- -T4 -oN quick-scan.txt 10.10.11.102
+# Nmap done at Sun Nov  2 12:18:09 2025 -- 1 IP address (0 hosts up) scanned in 2.13 seconds

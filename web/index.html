@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProFTPD 1.3.5 mod_copy RCE Lab</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Column -->
+        <div class="column left-column">
+            <div class="column-header">
+                <h2>ATTACKER NOTES & RESOURCES</h2>
+                <span class="placeholder-badge">Placeholder</span>
+            </div>
+            <div class="column-content">
+                <div class="placeholder-content">
+                    <div class="placeholder-item">
+                        <div class="placeholder-line short"></div>
+                        <div class="placeholder-line"></div>
+                        <div class="placeholder-line medium"></div>
+                    </div>
+                    <div class="placeholder-item">
+                        <div class="placeholder-line short"></div>
+                        <div class="placeholder-line"></div>
+                        <div class="placeholder-line medium"></div>
+                    </div>
+                    <div class="placeholder-item">
+                        <div class="placeholder-line short"></div>
+                        <div class="placeholder-line"></div>
+                        <div class="placeholder-line medium"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Column (Main Content) -->
+        <div class="column middle-column">
+            <div class="lab-header">
+                <div class="lab-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h1>ProFTPD 1.3.5 mod_copy RCE Lab</h1>
+            </div>
+
+            <div class="lab-description">
+                <h3>Vulnerability Description</h3>
+                <p>
+                    ProFTPD 1.3.5 contains a critical vulnerability in its <code>mod_copy</code> module that allows 
+                    unauthenticated attackers to execute arbitrary commands on the target system. The vulnerability 
+                    exploits the <code>SITE CPFR</code> and <code>SITE CPTO</code> commands to copy files from any 
+                    readable location to a web-accessible directory.
+                </p>
+                <div class="tech-specs">
+                    <div class="spec-item">
+                        <span class="spec-label">Target Service:</span>
+                        <span class="spec-value">ProFTPD 1.3.5</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Vulnerable Module:</span>
+                        <span class="spec-value">mod_copy</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">CVE:</span>
+                        <span class="spec-value">CVE-2015-3306</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Difficulty:</span>
+                        <span class="spec-value difficulty-medium">Medium</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lab-controls">
+                <button id="startBtn" class="start-button">
+                    <span class="btn-icon">▶</span>
+                    <span class="btn-text">START EXERCISE</span>
+                </button>
+                
+                <div id="statusArea" class="status-area hidden">
+                    <div class="status-message" id="statusMessage">
+                        <div class="spinner"></div>
+                        <span>DEPLOYING...</span>
+                    </div>
+                </div>
+
+                <div id="ipDisplay" class="ip-display hidden">
+                    <div class="ip-label">VICTIM IP ADDRESS</div>
+                    <div class="ip-container">
+                        <input type="text" id="ipAddress" class="ip-address" readonly>
+                        <button id="copyBtn" class="copy-button" title="Copy IP Address">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M5 15H4C2.89543 15 2 14.1046 2 13V4C2 2.89543 2.89543 2 4 2H13C14.1046 2 15 2.89543 15 4V5" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="instructions">
+                        <p>Copy the IP address above and use your external Kali Linux machine to exploit the ProFTPD mod_copy vulnerability.</p>
+                        <div class="hint-box">
+                            <strong>Quick Start:</strong> Connect to port 21 using <code>nc</code> or <code>telnet</code> to interact with the FTP service.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lab-footer">
+                <div class="warning-notice">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 9V13M12 17H12.01M10.29 3.86L1.82 18C1.64 18.34 1.54 18.72 1.54 19.11C1.54 20.15 2.39 21 3.43 21H20.57C21.61 21 22.46 20.15 22.46 19.11C22.46 18.72 22.36 18.34 22.18 18L13.71 3.86C13.53 3.52 13.28 3.22 12.96 3C12.14 2.44 10.85 2.44 10.03 3C9.71 3.22 9.47 3.52 9.29 3.86Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>For educational and authorized testing purposes only</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="column right-column">
+            <div class="column-header">
+                <h2>TARGET DOCUMENTATION & HINTS</h2>
+                <span class="placeholder-badge">Placeholder</span>
+            </div>
+            <div class="column-content">
+                <div class="placeholder-content">
+                    <div class="placeholder-item">
+                        <div class="placeholder-line short"></div>
+                        <div class="placeholder-line"></div>
+                        <div class="placeholder-line medium"></div>
+                    </div>
+                    <div class="placeholder-item">
+                        <div class="placeholder-line short"></div>
+                        <div class="placeholder-line"></div>
+                        <div class="placeholder-line medium"></div>
+                    </div>
+                    <div class="placeholder-item">
+                        <div class="placeholder-line short"></div>
+                        <div class="placeholder-line"></div>
+                        <div class="placeholder-line medium"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
